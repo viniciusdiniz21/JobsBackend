@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using JobsBackend.Core.Context;
 using JobsBackend.Models;
+using AutoMapper;
 
 namespace JobsBackend.Controllers
 {
@@ -15,10 +16,12 @@ namespace JobsBackend.Controllers
     public class JobsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public JobsController(ApplicationDbContext context)
+        public JobsController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         [HttpGet]
