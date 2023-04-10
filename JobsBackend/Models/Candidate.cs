@@ -1,6 +1,4 @@
-﻿using JobsBackend.Core.Entities;
-
-namespace JobsBackend.Models
+﻿namespace JobsBackend.Models
 {
     public class Candidate : BaseEntity
     {

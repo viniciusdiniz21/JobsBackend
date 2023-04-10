@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace JobsBackend.Core.Entities
+namespace JobsBackend.Models
 {
     public abstract class BaseEntity
     {

@@ -4,6 +4,7 @@ using JobsBackend.Core.Dtos.Company;
 using JobsBackend.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace JobsBackend.Controllers
 {
@@ -29,6 +30,16 @@ namespace JobsBackend.Controllers
             await _context.SaveChangesAsync();
 
             return Ok(newCompany);
+        }
+
+        [HttpGet]
+        [Route("Get")]
+        public async Task<ActionResult<IEnumerable<CompanyGetDto>>> GetCompanies()
+        {
+            var companies = await _context.Companies.ToListAsync();
+            var convertedCompanies = _mapper.Map<IEnumerable<CompanyGetDto>>(companies);
+
+            return Ok(convertedCompanies);
         }
     }
 }

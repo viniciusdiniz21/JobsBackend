@@ -21,6 +21,7 @@
   <ItemGroup>
     <Folder Include="Core\Dtos\Candidate\" />
     <Folder Include="Core\Dtos\Job\" />
+    <Folder Include="Core\Entities\" />
   </ItemGroup>
 
 </Project>

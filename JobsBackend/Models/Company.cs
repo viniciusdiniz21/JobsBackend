@@ -1,5 +1,4 @@
-﻿using JobsBackend.Core.Entities;
-using JobsBackend.Core.Enums;
+﻿using JobsBackend.Core.Enums;
 
 namespace JobsBackend.Models
 {
