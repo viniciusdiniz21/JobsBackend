@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using JobsBackend.Core.Context;
 using JobsBackend.Models;
 using AutoMapper;
+using JobsBackend.Core.Dtos.Job;
 
 namespace JobsBackend.Controllers
 {
@@ -25,13 +26,16 @@ namespace JobsBackend.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Job>>> GetJobs()
+        [Route("Get")]
+        public async Task<ActionResult<IEnumerable<JobGetDto>>> GetJobs()
         {
           if (_context.Jobs == null)
           {
               return NotFound();
           }
-            return await _context.Jobs.ToListAsync();
+            var jobs = await _context.Jobs.Include(job => job.Company).ToListAsync();
+            var convertedJobs = _mapper.Map<JobGetDto>(jobs);
+            return Ok(convertedJobs);
         }
 
         [HttpGet("{id}")]
@@ -81,16 +85,17 @@ namespace JobsBackend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Job>> PostJob(Job job)
+        public async Task<IActionResult> PostJob([FromBody] JobCreateDto dto)
         {
+            var newJob = _mapper.Map<Job>(dto);
           if (_context.Jobs == null)
           {
               return Problem("Entity set 'ApplicationDbContext.Jobs'  is null.");
           }
-            _context.Jobs.Add(job);
+            await _context.Jobs.AddAsync(newJob);
             await _context.SaveChangesAsync();
 
-            return Ok(job);
+            return Ok(newJob);
         }
 
         [HttpDelete("{id}")]
