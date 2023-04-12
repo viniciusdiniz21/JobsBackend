@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using JobsBackend.Core.Dtos.Candidate;
 using JobsBackend.Core.Dtos.Company;
 using JobsBackend.Core.Dtos.Job;
 using JobsBackend.Models;
@@ -17,6 +18,9 @@ namespace JobsBackend.Core.AutoMapperConfig
             CreateMap<Job, JobGetDto>()
                 .ForMember(dest => dest.CompanyName, opt => opt.MapFrom(src => src.Company.Name));
             // Candidate
+            CreateMap<CandidateCreateDto, Candidate>();
+            CreateMap<Candidate, CandidateGetDto>()
+                .ForMember(dest => dest.JobTitle, opt => opt.MapFrom(src=>src.Job.Title));
         }
     }
 }
